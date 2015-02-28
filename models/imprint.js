@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var ScoreSchema = new mongoose.Schema({
-  user: String,
+  manufacturer: String,
   score: Number
 });
 
