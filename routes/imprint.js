@@ -4,6 +4,7 @@ var request = require('request');
 
 /* GET /score listing. */
 router.get('/:id', function(req, res, next) {
+  console.log(req.params.id);
   request('http://rximage.nlm.nih.gov/api/rximage/1/rxnav?imprint=' + req.params.id, function (error, response, body) {
   if (!error && response.statusCode == 200) {
    var image = JSON.parse(body);

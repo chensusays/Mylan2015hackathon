@@ -3,9 +3,10 @@ var bodyParser = require('body-parser');
 var path = require('path');
 
 var imprint = require('./routes/imprint');
+var report = require('./routes/report');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/scoreboard', function(err) {
+mongoose.connect('mongodb://localhost/pillbox', function(err) {
     if(err) {
         console.log('connection error', err);
     } else {
@@ -19,6 +20,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/imprint', imprint);
+app.use('/report', report);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
