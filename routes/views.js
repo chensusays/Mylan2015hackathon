@@ -6,7 +6,6 @@ var view = require('../models/views.js');
 router.get('/:name', function(req, res, next) {
   if(!req.params.name)
     return res.json({"status":"pill name not defined"});
-  //res.json(view.find({ name:req.params.name }).drugs);
   view.findOne({ 'name': req.params.name }, 'drugs -_id', function (err, person) {
   if (err) return handleError(err);
   res.json(person.toObject().drugs);
