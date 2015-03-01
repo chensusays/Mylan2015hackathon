@@ -8,6 +8,8 @@ router.get('/:name', function(req, res, next) {
     return res.json({"status":"pill name not defined"});
   view.findOne({ 'name': req.params.name }, 'pills -_id', function (err, person) {
   if (err) return handleError(err);
+  if(!person)
+    return res.json({"status" : "View does not exist"});
   res.json(person.toObject().pills);
 });
 });
