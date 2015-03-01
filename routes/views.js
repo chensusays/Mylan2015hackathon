@@ -17,13 +17,28 @@ router.get('/:name', function(req, res, next) {
 router.post('/:name', function(req, res, next) {
   if(!req.body.pill||!req.params.name)
     return res.json({"status":"pill name not defined"});
-  
+  console.log(req.body.pill + " " + req.params.name);
+  view.findOne({"name": req.params.name},function(err, model) {
+        if (err) return next(err);
+        model.drugs.push(req.body.pill);
+        model.save();
+        res.json({"status" : "success"});
+  return 0;
+  });
 });
 
 /* DELETE delete pills in view */
 router.delete('/:name', function(req, res, next) {
   if(!req.body.pill||!req.params.name)
     return res.json({"status":"pill name not defined"});
+  console.log(req.body.pill + " " + req.params.name);
+  view.findOne({"name": req.params.name},function(err, model) {
+        if (err) return next(err);
+        model.drugs.pull(req.body.pill);
+        model.save();
+        res.json({"status" : "success"});
+  return 0;
+  });
 });
 
 /* GET view views*/
