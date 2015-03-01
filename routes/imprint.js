@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-/* GET /score listing. */
+/* GET /imprint returns data for determining correct pill. */
 router.get('/:id', function(req, res, next) {
   console.log(req.params.id);
   request('http://rximage.nlm.nih.gov/api/rximage/1/rxnav?imprint=' + req.params.id, function (error, response, body) {
