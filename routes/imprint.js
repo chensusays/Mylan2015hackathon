@@ -5,7 +5,12 @@ var request = require('request');
 /* GET /imprint returns data for determining correct pill. */
 router.get('/:id', function(req, res, next) {
   console.log(req.params.id);
-  request('http://rximage.nlm.nih.gov/api/rximage/1/rxnav?imprint=' + req.params.id, function (error, response, body) {
+  var url= '';
+  if(!req.body.color)
+    url='http://rximage.nlm.nih.gov/api/rximage/1/rxnav?imprint=' + req.params.id;
+  else
+    url='http://rximage.nlm.nih.gov/api/rximage/1/rxnav?imprint=' + req.params.id + '&color=' + req.body.color;
+  request(url , function (error, response, body) {
   if (!error && response.statusCode == 200) {
    var image = JSON.parse(body);
    var JsonResponse = {};

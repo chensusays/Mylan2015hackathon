@@ -3,23 +3,32 @@ var router = express.Router();
 var view = require('../models/views.js');
 
 /* GET return pills in view */
-router.get('/:user', function(req, res, next) {
-
+router.get('/:name', function(req, res, next) {
+  if(!req.params.name)
+    return res.json({"status":"pill name not defined"});
+  //res.json(view.find({ name:req.params.name }).drugs);
+  view.findOne({ 'name': req.params.name }, 'drugs -_id', function (err, person) {
+  if (err) return handleError(err);
+  res.json(person.toObject().drugs);
+});
 });
 
 /* POST create pills in view */
-router.post('/:user', function(req, res, next) {
-
+router.post('/:name', function(req, res, next) {
+  if(!req.body.pill||!req.params.name)
+    return res.json({"status":"pill name not defined"});
+  
 });
 
 /* DELETE delete pills in view */
-router.delete('/:user', function(req, res, next) {
-
+router.delete('/:name', function(req, res, next) {
+  if(!req.body.pill||!req.params.name)
+    return res.json({"status":"pill name not defined"});
 });
 
 /* GET view views*/
 router.get('/', function(req, res, next) {
-view.find(null, 'name -_id',
+view.find(null, 'name drugs -_id',
   {
     skip:0 // Starting Row
   },
