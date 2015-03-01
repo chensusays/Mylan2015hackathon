@@ -19,8 +19,10 @@ router.get('/:ndc', function(req, res, next) {
             var bdate = b.report_date.charAt(4) + b.report_date.charAt(5)+ " "+ b.report_date.charAt(6) + b.report_date.charAt(7) + " " + b.report_date.charAt(0) + b.report_date.charAt(1) + b.report_date.charAt(2) + b.report_date.charAt(3);
             if(Date.parse(adate) > Date.parse(bdate))
                 return -1;
-            else
+            else if(Date.parse(adate) < Date.parse(bdate))
                 return 1;
+            else
+                return 0;
         });
         for(var i=0;i<datasorted.length;i++)
         {
