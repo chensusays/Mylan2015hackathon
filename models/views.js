@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var viewSchema = new mongoose.Schema({
   name: String,
-  drugs: [String]
+  pills: [String]
 });
 
 module.exports = mongoose.model('views', viewSchema);

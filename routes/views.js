@@ -6,9 +6,9 @@ var view = require('../models/views.js');
 router.get('/:name', function(req, res, next) {
   if(!req.params.name)
     return res.json({"status":"pill name not defined"});
-  view.findOne({ 'name': req.params.name }, 'drugs -_id', function (err, person) {
+  view.findOne({ 'name': req.params.name }, 'pills -_id', function (err, person) {
   if (err) return handleError(err);
-  res.json(person.toObject().drugs);
+  res.json(person.toObject().pills);
 });
 });
 
@@ -19,7 +19,7 @@ router.post('/:name', function(req, res, next) {
   console.log(req.body.pill + " " + req.params.name);
   view.findOne({"name": req.params.name},function(err, model) {
         if (err) return next(err);
-        model.drugs.push(req.body.pill);
+        model.pills.push(req.body.pill);
         model.save();
         res.json({"status" : "success"});
   return 0;
@@ -33,7 +33,7 @@ router.delete('/:name', function(req, res, next) {
   console.log(req.body.pill + " " + req.params.name);
   view.findOne({"name": req.params.name},function(err, model) {
         if (err) return next(err);
-        model.drugs.pull(req.body.pill);
+        model.pills.pull(req.body.pill);
         model.save();
         res.json({"status" : "success"});
   return 0;
@@ -42,7 +42,7 @@ router.delete('/:name', function(req, res, next) {
 
 /* GET view views*/
 router.get('/', function(req, res, next) {
-view.find(null, 'name drugs -_id',
+view.find(null, 'name pills -_id',
   {
     skip:0 // Starting Row
   },
@@ -57,7 +57,7 @@ router.post('/', function(req, res, next) {
   if(!req.body.name)
     return res.json({"status":"view name not defined"});
   view.create({"name" : req.body.name,
-                "drugs" : []}, function (err, post) {
+                "pills" : []}, function (err, post) {
     if (err) return next(err);
       res.json( {"status": "success" });
   });
